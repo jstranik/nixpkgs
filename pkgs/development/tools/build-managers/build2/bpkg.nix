@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  doCheck = !stdenv.isDarwin; # tests hang
+  doCheck = false; # tests are broken in the package
 
   # Failing test
   postPatch = ''
