@@ -20706,6 +20706,8 @@ with pkgs;
 
   libcoro = callPackage ../development/libraries/libcoro { };
 
+  libfrozen = callPackage ../development/libraries/libfrozen { };
+
   libzdb = callPackage ../development/libraries/libzdb { };
 
   libwacom = callPackage ../development/libraries/libwacom { };
