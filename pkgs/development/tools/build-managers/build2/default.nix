@@ -1,5 +1,6 @@
 { stdenv, lib
 , build2
+, pkg-config
 , fetchurl
 , fixDarwinDylibNames
 , libbutl
@@ -16,7 +17,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "build2";
-  version = "0.14.0";
+  version = "0.15.0";
 
   outputs = [ "out" "dev" "doc" "man" ];
 
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://pkg.cppget.org/1/alpha/build2/build2-${version}.tar.gz";
-    sha256 = "sha256-/pWj68JmBthOJ2CTQHo9Ww3MCv4xBOw0SusJpMfX5Y8=";
+    sha256 = "sha256-OShFkA7UR38J6Pmt3wYtJFx/gpzElCSmNU3Rb/hLZhw=";
   };
 
   patches = [
@@ -35,6 +36,8 @@ stdenv.mkDerivation rec {
 
     ./remove-const-void-param.patch
   ];
+
+  propagatedNativeBuildInputs = [ pkg-config ];
 
   strictDeps = true;
   nativeBuildInputs = [
@@ -66,6 +69,7 @@ stdenv.mkDerivation rec {
   build2ConfigureFlags = [
     "config.bin.lib=${configSharedStatic enableShared enableStatic}"
     "config.cc.poptions+=-I${lib.getDev libpkgconf}/include/pkgconf"
+    "config.build2.libpkgconf=true"
   ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
