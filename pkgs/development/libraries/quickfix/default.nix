@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoconf, automake, libtool }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoconf, automake, libtool, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "quickfix";
@@ -19,10 +19,14 @@ stdenv.mkDerivation rec {
     })
     ./disableUnitTests.patch
     ./glibtoolize.patch
+    ./python.patch
   ];
 
+  configureFlags = ["--with-python3"];
   # autoreconfHook does not work
-  nativeBuildInputs = [ autoconf automake libtool ];
+  nativeBuildInputs = [ autoconf automake libtool
+                        (python3.withPackages (ps: with ps; [ setuptools ]))
+                      ];
 
   enableParallelBuilding = true;
 

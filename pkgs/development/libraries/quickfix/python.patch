@@ -1,0 +1,18 @@
+--- source.orig/src/python3/Makefile.am	1969-12-31 19:00:01.000000000 -0500
++++ source/src/python3/Makefile.am	2024-08-08 00:47:46.273435503 -0400
+@@ -1,4 +1,4 @@
+-pythondir = $(PYTHON3_SITE_PACKAGES)
++#pythondir = $(PYTHON3_SITE_PACKAGES)
+ python_LTLIBRARIES = _quickfix.la
+ _quickfix_la_SOURCES = \
+ 	QuickfixPython.cpp
+--- source.orig/configure.ac	1969-12-31 19:00:01.000000000 -0500
++++ source/configure.ac	2024-08-08 00:28:15.883761190 -0400
+@@ -38,6 +38,7 @@
+ AX_RUBY()
+ AX_JAVA()
+ 
++AM_PATH_PYTHON()
+ ########################################
+ # Disable unit tests on Solaris, AIX
+ 
