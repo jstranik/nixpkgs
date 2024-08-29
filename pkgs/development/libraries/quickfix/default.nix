@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoconf, automake, libtool, python3 }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoconf, automake, libtool, python3, boost, enablePythonBindings ? true }:
 
 stdenv.mkDerivation rec {
   pname = "quickfix";
@@ -22,11 +22,14 @@ stdenv.mkDerivation rec {
     ./python.patch
   ];
 
-  configureFlags = ["--with-python3"];
+  configureFlags = lib.optional enablePythonBindings ["--with-python3"];
   # autoreconfHook does not work
   nativeBuildInputs = [ autoconf automake libtool
                         (python3.withPackages (ps: with ps; [ setuptools ]))
                       ];
+  buildInputs = [ boost ];
+
+  CPPFLAGS="-DENABLE_BOOST_ATOMIC_COUNT";
 
   enableParallelBuilding = true;
 
