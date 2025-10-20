@@ -1,0 +1,13 @@
+--- source2/src/python3/Makefile.am	2025-10-20 01:08:42.069863363 -0400
++++ source/src/python3/Makefile.am	2025-10-20 01:07:11.249728503 -0400
+@@ -11,8 +11,8 @@
+ 
+ INCLUDES = $(PYTHON3_CFLAGS) -I. -I.. -I../.. -I../C++
+ 
+-local_python_src=$(top_builddir)/src/python3
+-local_python_lib=$(top_builddir)/lib/python3
++local_python_src=$(out)/src/python3
++local_python_lib=$(out)/lib/python3
+ 
+ all-local: $(python_LTLIBRARIES)
+ 	rm -rf $(local_python_lib)

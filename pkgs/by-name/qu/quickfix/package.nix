@@ -29,6 +29,7 @@ stdenv.mkDerivation rec {
       sha256 = "1wlk4j0wmck0zm6a70g3nrnq8fz0id7wnyxn81f7w048061ldhyd";
     })
     ./disableUnitTests.patch
+    ./fix-namespace.patch
     ./python.patch
   ];
 
@@ -40,7 +41,7 @@ stdenv.mkDerivation rec {
     libtool
     (python3.withPackages (ps: with ps; [ setuptools ]))
   ];
-  buildInputs = [ boost ];
+  buildInputs = [ boost (python3.withPackages(pp: [ pp.distutils ]))];
 
   CPPFLAGS="-DENABLE_BOOST_ATOMIC_COUNT";
 
